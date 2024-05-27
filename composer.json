@@ -1,0 +1,32 @@
+{
+  "name": "alphpaca/monocle-constraint",
+  "type": "project",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Jacob Tobiasz",
+      "email": "jacob@alphpaca.io"
+    }
+  ],
+  "require": {
+    "php": "^8.3",
+    "composer/composer": "^2.7",
+    "composer/semver": "^3.2",
+    "composer-plugin-api": "^2.6"
+  },
+  "autoload": {
+    "psr-4": {
+      "Alphpaca\\Monocle\\Constraint\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\Alphpaca\\Monocle\\Constraint\\": "tests/"
+    }
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-main": "0.1.x-dev"
+    }
+  }
+}

@@ -63,4 +63,15 @@ final class PackageReplacementsResolverTest extends TestCase
         $resolver = new PackageReplacementsResolver($httpClient);
         $resolver->resolveFor('alphpaca', 'stack', new Constraint('>=', '2.0.0'));
     }
+
+    #[Test]
+    public function it_handles_when_no_version_matches_the_constraint(): void
+    {
+        $this->expectException(PackageResolvingException::class);
+
+        $httpClient = new MockHttpClient([new MockResponse('{}')]);
+
+        $resolver = new PackageReplacementsResolver($httpClient);
+        $resolver->resolveFor('alphpaca', 'stack', new Constraint('>=', '2.0.0'));
+    }
 }

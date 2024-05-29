@@ -26,6 +26,11 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 final readonly class PackageReplacementsResolver
 {
+    public function __construct(
+        private HttpClientInterface $httpClient,
+    ) {
+    }
+
     /**
      * @return array<string>
      *
@@ -41,11 +46,6 @@ final readonly class PackageReplacementsResolver
         }
 
         return array_keys($package['replace'] ?? []);
-    }
-
-    public function __construct(
-        private HttpClientInterface $httpClient,
-    ) {
     }
 
     /**
@@ -67,11 +67,12 @@ final readonly class PackageReplacementsResolver
         $fullPackageName = sprintf('%s/%s', $vendorName, $packageName);
 
         $content = json_decode($content, true);
-        $packages = MetadataMinifier::expand($content['packages'][$fullPackageName]);
+        $packageVersions = $content['packages'][$fullPackageName] ?? [];
+        $expandedPackageVersions = MetadataMinifier::expand($packageVersions);
 
-        foreach ($packages as $package) {
-            if (Semver::satisfies($package['version_normalized'], $constraint->getPrettyString())) {
-                return $package;
+        foreach ($expandedPackageVersions as $expandedPackageVersion) {
+            if (Semver::satisfies($expandedPackageVersion['version_normalized'], $constraint->getPrettyString())) {
+                return $expandedPackageVersion;
             }
         }
 

@@ -1,6 +1,6 @@
 {
   "name": "alphpaca/monocle-constraint",
-  "type": "project",
+  "type": "composer-plugin",
   "license": "MIT",
   "authors": [
     {
@@ -14,10 +14,8 @@
     "composer/metadata-minifier": "^1.0",
     "composer/semver": "^3.2",
     "composer-plugin-api": "^2.6",
-    "symfony/http-client-contracts": "^3.5"
-  },
-  "require-dev": {
-    "symfony/http-client": "^6.4"
+    "symfony/http-client": "^5.4 || ^6.4 || ^7.0",
+    "symfony/http-client-contracts": "^2.5 || ^3.5"
   },
   "autoload": {
     "psr-4": {
@@ -32,6 +30,8 @@
   "extra": {
     "branch-alias": {
       "dev-main": "0.1.x-dev"
-    }
+    },
+    "class": "Alphpaca\\Monocle\\Constraint\\Plugin",
+    "plugin-modifies-downloads": true
   }
 }

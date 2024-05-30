@@ -13,19 +13,29 @@ declare(strict_types=1);
 
 namespace Alphpaca\Monocle\Constraint\Map;
 
-final readonly class MonorepositoryPackagesMap
+use Composer\Semver\Constraint\ConstraintInterface;
+
+final class MonorepositoryPackagesMap
 {
-    /**
-     * @param array<PackageConstraintMap> $packages
-     */
+    /** @var array<PackageConstraintMap> */
+    private array $packages = [];
+
     public function __construct(
         public string $monorepositoryName,
-        public array $packages,
+        public ConstraintInterface $constraint,
     ) {
-        foreach ($packages as $package) {
-            if (!$package instanceof PackageConstraintMap) {
-                throw new \InvalidArgumentException('All packages must be an instance of '.PackageConstraintMap::class);
-            }
-        }
+    }
+
+    public function addPackage(PackageConstraintMap $package): void
+    {
+        $this->packages[$package->packageName] = $package;
+    }
+
+    /**
+     * @return array<PackageConstraintMap>
+     */
+    public function getPackages(): array
+    {
+        return $this->packages;
     }
 }

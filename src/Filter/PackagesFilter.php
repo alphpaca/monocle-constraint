@@ -15,18 +15,22 @@ namespace Alphpaca\Monocle\Constraint\Filter;
 
 use Alphpaca\Monocle\Constraint\Map\PackageConstraintMap;
 use Composer\Package\BasePackage;
-use Composer\Semver\Constraint\ConstraintInterface;
 use Composer\Semver\VersionParser;
 
-class PackagesFilter
+readonly class PackagesFilter
 {
+    public function __construct(
+        private VersionParser $versionParser,
+    ) {
+    }
+
     /**
      * @param array<BasePackage>                  $packages
      * @param array<string, PackageConstraintMap> $knownPackages
      *
      * @return array<BasePackage>
      */
-    public static function filter(array $packages, array $knownPackages, ConstraintInterface $constraint): array
+    public function filter(array $packages, array $knownPackages): array
     {
         $filteredPackages = [];
 
@@ -38,9 +42,10 @@ class PackagesFilter
                 continue;
             }
 
-            $packageVersion = (new VersionParser())->parseConstraints($package->getVersion());
+            $packageVersion = $this->versionParser->parseConstraints($package->getVersion());
+            $knownPackage = $knownPackages[$packageName];
 
-            if (!$packageVersion->matches($constraint)) {
+            if (!$packageVersion->matches($knownPackage->constraint)) {
                 continue;
             }
 

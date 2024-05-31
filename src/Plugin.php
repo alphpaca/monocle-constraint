@@ -131,6 +131,7 @@ final class Plugin implements PluginInterface, EventSubscriberInterface
             throw new \RuntimeException('IO instance is not set');
         }
 
+        $packageFilter = new PackagesFilter($this->versionParser);
         $restrictedPackages = [];
 
         foreach ($this->monorepositoriesPackagesMaps as $monorepositoryPackagesMap) {
@@ -145,10 +146,9 @@ final class Plugin implements PluginInterface, EventSubscriberInterface
             $restrictedPackages = array_merge($restrictedPackages, $monorepositoryPackagesMap->getPackages());
         }
 
-        $filteredPackages = PackagesFilter::filter(
+        $filteredPackages = $packageFilter->filter(
             $event->getPackages(),
             $restrictedPackages,
-            $monorepositoryPackagesMap->constraint,
         );
 
         $event->setPackages($filteredPackages);

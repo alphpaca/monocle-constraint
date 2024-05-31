@@ -10,12 +10,13 @@
   ],
   "require": {
     "php": "^8.3",
-    "composer/composer": "^2.7",
+    "composer/composer": "^2.0",
     "composer/metadata-minifier": "^1.0",
     "composer/semver": "^3.2",
-    "composer-plugin-api": "^2.6",
+    "composer-plugin-api": "^2.0",
     "symfony/http-client": "^5.4 || ^6.4 || ^7.0",
-    "symfony/http-client-contracts": "^2.5 || ^3.5"
+    "symfony/http-client-contracts": "^2.5 || ^3.5",
+    "humbug/php-scoper": "^0.18"
   },
   "autoload": {
     "psr-4": {

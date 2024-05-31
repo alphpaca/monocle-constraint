@@ -55,7 +55,7 @@ final class Plugin implements PluginInterface, EventSubscriberInterface
 
         $monorepositoriesConstraintsMap = $this->getMonocleComposerConfig('constraints');
 
-        if ([] === $monorepositoriesConstraintsMap) {
+        if (null === $monorepositoriesConstraintsMap || [] === $monorepositoriesConstraintsMap) {
             $io->debug('No monorepositories constraints found in composer.json');
 
             return;

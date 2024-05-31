@@ -15,8 +15,7 @@
     "composer/semver": "^3.2",
     "composer-plugin-api": "^2.0",
     "symfony/http-client": "^5.4 || ^6.4 || ^7.0",
-    "symfony/http-client-contracts": "^2.5 || ^3.5",
-    "humbug/php-scoper": "^0.18"
+    "symfony/http-client-contracts": "^2.5 || ^3.5"
   },
   "autoload": {
     "psr-4": {
